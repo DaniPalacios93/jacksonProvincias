@@ -1,8 +1,11 @@
-package mavenPapeleria.controllers;
+package jsonProvincias.controlers;
 
 import com.mongodb.MongoClientURI;
 
+import org.bson.Document;
+
 import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 
@@ -12,12 +15,21 @@ public class SuperControlador {
 	private final int port_no = 22017;
 	private final String host_name = "localhost";
 	private final String db_name = "ComunidadesProvinciasPoblaciones";
+	private String collectionName = "";
 	
 	
 	private MongoDatabase db = null;
 	
 	
+	public SuperControlador(String collection) {
+		this.collectionName = collection;
+	}
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	protected MongoDatabase getConexion() {
 		
 		if(db == null) {
@@ -31,6 +43,13 @@ public class SuperControlador {
 	}
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
+	protected MongoCollection<Document> getCollection(){
+		return getConexion().getCollection(collectionName);
+	}
 	
 
 	

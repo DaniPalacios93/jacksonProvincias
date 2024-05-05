@@ -1,8 +1,7 @@
-package mavenPapeleria.entities;
+package jsonProvincias.entities;
 
 public class Provincia extends Entidad {
 	
-	private String _id;
 	private String parent_code;
 	private String code;
 	private String label;
@@ -18,14 +17,6 @@ public class Provincia extends Entidad {
 
 	
 	// GETTERS & SETTERS
-
-	public String get_id() {
-		return _id;
-	}
-
-	public void set_id(String _id) {
-		this._id = _id;
-	}
 
 	public String getParent_code() {
 		return parent_code;

@@ -13,6 +13,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 
 import jsonProvincias.entities.Ccaa;
+import jsonProvincias.entities.Provincia;
 
 public class ControladorCcaa extends SuperControlador {
 
@@ -44,7 +45,6 @@ public class ControladorCcaa extends SuperControlador {
 		
 		Ccaa p = new Ccaa();
 		
-		p.setParent_code(doc.getString("parent_code"));
 		p.setCode(doc.getString("code"));
 		p.setLabel(doc.getString("label"));
 		
@@ -96,23 +96,6 @@ public class ControladorCcaa extends SuperControlador {
     }
 	
     
-    /**
-     * 
-     */
-    public void getSelectiveDocument() {
-    	
-    	MongoCollection<Document> col = getCollection();
  
-        // Performing a read operation on the collection.
-        FindIterable<Document> fi = col.find(Filters.eq("label", "Andalucía"));        
-        MongoCursor<Document> cursor = fi.iterator();
-        try {
-            while(cursor.hasNext()) {
-            	System.out.println(cursor.next().toJson());
-            }
-        } finally {
-            cursor.close();
-        }
-    }
 	
 }

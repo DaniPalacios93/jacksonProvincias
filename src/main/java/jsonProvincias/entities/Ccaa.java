@@ -1,8 +1,7 @@
 package jsonProvincias.entities;
 
-public class Ccaa extends Entidad{
+public class Ccaa {
 	
-	private String parent_code;
 	private String code;
 	private String label;
 	
@@ -15,14 +14,6 @@ public class Ccaa extends Entidad{
 	
 	
 	// GETTERS & SETTERS
-
-	public String getParent_code() {
-		return parent_code;
-	}
-
-	public void setParent_code(String parent_code) {
-		this.parent_code = parent_code;
-	}
 
 	public String getCode() {
 		return code;

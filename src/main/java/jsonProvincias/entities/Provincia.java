@@ -1,6 +1,6 @@
 package jsonProvincias.entities;
 
-public class Provincia extends Entidad {
+public class Provincia {
 	
 	private String parent_code;
 	private String code;

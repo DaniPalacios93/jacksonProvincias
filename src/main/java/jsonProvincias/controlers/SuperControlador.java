@@ -12,7 +12,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class SuperControlador {
 
-	private final int port_no = 22017;
+	private final int port_no = 27017;
 	private final String host_name = "localhost";
 	private final String db_name = "ComunidadesProvinciasPoblaciones";
 	private String collectionName = "";

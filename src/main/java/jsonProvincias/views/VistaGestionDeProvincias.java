@@ -110,16 +110,19 @@ public class VistaGestionDeProvincias extends JPanel {
 		gbc_btnGuardar.gridy = 4;
 		add(btnGuardar, gbc_btnGuardar);
 
-		
+		cargaProvincia();
 		
 	}
 	
 	
 	private void cargaProvincia() {
-		
-		this.jtfCode.setText(provinciaSeleccionada.getCode());
-		this.jtfLabel.setText(provinciaSeleccionada.getLabel());
-		this.jcbCcaa.setSelectedItem(jcbCcaa);
+	
+		if(provinciaSeleccionada != null) {
+			this.jtfCode.setText(provinciaSeleccionada.getCode());
+			this.jtfLabel.setText(provinciaSeleccionada.getLabel());
+			this.jcbCcaa.setSelectedItem(jcbCcaa);
+		}
+	
 	}
 
 }

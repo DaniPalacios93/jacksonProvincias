@@ -20,7 +20,7 @@ public class ControladorProvincia extends SuperControlador{
 	
 	
 	public ControladorProvincia() {
-		super("provincia");
+		super("provincias");
 	}
 
 	

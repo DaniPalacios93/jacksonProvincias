@@ -5,10 +5,13 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+import jsonProvincias.controlers.ControladorCcaa;
 import jsonProvincias.entities.Ccaa;
 import jsonProvincias.entities.Provincia;
 
@@ -17,17 +20,15 @@ import java.awt.Font;
 public class VistaGestionDeProvincias extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Provincia provinciaSeleccionada;
 	private JTextField jtfLabel;
 	private JTextField jtfCode;
 	private JComboBox<Ccaa> jcbCcaa;
+	private List<Ccaa> l;
 
 	/**
 	 * Create the panel.
 	 */
-	public VistaGestionDeProvincias(Provincia p) {
-		
-		this.provinciaSeleccionada = p;
+	public VistaGestionDeProvincias() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
@@ -110,19 +111,29 @@ public class VistaGestionDeProvincias extends JPanel {
 		gbc_btnGuardar.gridy = 4;
 		add(btnGuardar, gbc_btnGuardar);
 
-		cargaProvincia();
+		
 		
 	}
 	
 	
-	private void cargaProvincia() {
+	public void cargaProvincia(Provincia provinciaSeleccionada) {
+		
+		cargaTodasLasCcaa();
 	
 		if(provinciaSeleccionada != null) {
 			this.jtfCode.setText(provinciaSeleccionada.getCode());
 			this.jtfLabel.setText(provinciaSeleccionada.getLabel());
-			this.jcbCcaa.setSelectedItem(jcbCcaa);
+			this.jcbCcaa.setSelectedItem(ControladorCcaa.getInstance().getCcaaByProvincia(provinciaSeleccionada));
 		}
+	}
 	
+	
+	private void cargaTodasLasCcaa() {
+		l = ControladorCcaa.getInstance().getAllCcaa();
+		
+		for(Ccaa c : l) {
+			jcbCcaa.addItem(c);
+		}
 	}
 
 }

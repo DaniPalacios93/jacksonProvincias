@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import jsonProvincias.entities.Provincia;
 import jsonProvincias.views.DatosTablaProvincias;
 import jsonProvincias.views.VistaGestionDeProvincias;
 
@@ -56,7 +57,7 @@ public class Principal extends JFrame {
 		
 		
 		
-		panel = new VistaGestionDeProvincias(null);
+		panel = new VistaGestionDeProvincias();
 		splitPane.setRightComponent(panel);
 		
 		
@@ -70,9 +71,8 @@ public class Principal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				panel = new VistaGestionDeProvincias(DatosTablaProvincias.getProvinciaByFila(table.getSelectedRow()));
-				panel.repaint();
-				panel.revalidate();
+				Provincia provinciaSeleccionada = DatosTablaProvincias.getProvinciaByFila(table.getSelectedRow());
+				panel.cargaProvincia(provinciaSeleccionada);
 			}
 		});
 		

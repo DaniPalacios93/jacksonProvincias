@@ -72,6 +72,21 @@ public class ControladorCcaa extends SuperControlador {
         }
         return allCcaa;
     }
+    
+    
+    public Ccaa getCcaaByProvincia (Provincia p) {
+    	
+    	List<Ccaa> allCcaa = getAllCcaa();
+    	
+    	for(Ccaa c : allCcaa) {
+    		if(p.getParent_code() == c.getCode()) return c;
+    	}
+    	
+    	return null;
+    	
+    }
+    
+    
 	
     /**
      * Ejemplo de modificación de una entidad
@@ -95,6 +110,8 @@ public class ControladorCcaa extends SuperControlador {
         }
     }
 	
+    
+    
     
  
 	

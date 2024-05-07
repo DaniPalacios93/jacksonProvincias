@@ -14,6 +14,11 @@ public class Ccaa {
 	
 	
 	// GETTERS & SETTERS
+	
+	@Override
+	public String toString() {
+		return label;
+	}
 
 	public String getCode() {
 		return code;

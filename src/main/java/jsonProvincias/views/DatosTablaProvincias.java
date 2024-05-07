@@ -7,11 +7,14 @@ import jsonProvincias.entities.Provincia;
 
 public class DatosTablaProvincias {
 	
-	private static List<Provincia> provincias;
+	private static List<Provincia> provincias = null;
 	
 	
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public static String[] getTitulosColumnas() {
 		return new String[] {
 				"parent_code",
@@ -20,8 +23,10 @@ public class DatosTablaProvincias {
 				};
 	}
 	
-	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public static Object[][] getDatosDeTabla(){
 		
 		provincias = ControladorProvincia.getInstance().getAllProvincias();
@@ -29,22 +34,25 @@ public class DatosTablaProvincias {
 		
 		for (int i = 0; i < provincias.size(); i++) {
 			
-			System.out.println("cargando datos de provincia" + i);
-			
 			Provincia provincia = provincias.get(i);
 			
 			datos[i][0] = provincia.getParent_code();
-			System.out.println("La provincia " + i + " tiene un parent code de " + datos[i][0]);
 			datos[i][1] = provincia.getCode();
 			datos[i][2] = provincia.getLabel();
 		}	
 		return datos;
 	}
 	
-	
-	public static Provincia getProvinciaByFila(int i) {
+	/**
+	 * 
+	 * @return
+	 */
+	public static List<Provincia> getAllProvincias() {
 		
-		return provincias.get(i);
+		if(provincias == null) {
+			provincias = ControladorProvincia.getInstance().getAllProvincias();
+		}
+		return provincias;
 	}
 	
 	

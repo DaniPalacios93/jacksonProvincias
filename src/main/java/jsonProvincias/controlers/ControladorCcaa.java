@@ -41,7 +41,7 @@ public class ControladorCcaa extends SuperControlador {
 	 * @param doc
 	 * @return
 	 */
-	private Ccaa documentToProvicia(Document doc) {
+	private Ccaa documentToCcaa(Document doc) {
 		
 		Ccaa p = new Ccaa();
 		
@@ -65,7 +65,7 @@ public class ControladorCcaa extends SuperControlador {
         List<Ccaa> allCcaa = new ArrayList<Ccaa>();
         try {
             while(cursor.hasNext()) {
-            	allCcaa.add(documentToProvicia(cursor.next()));
+            	allCcaa.add(documentToCcaa(cursor.next()));
             }
         } finally {
             cursor.close();
@@ -79,7 +79,10 @@ public class ControladorCcaa extends SuperControlador {
     	List<Ccaa> allCcaa = getAllCcaa();
     	
     	for(Ccaa c : allCcaa) {
-    		if(p.getParent_code() == c.getCode()) return c;
+    		if(Integer.parseInt(p.getParent_code()) == Integer.parseInt(c.getCode())) {
+    			return c;
+    		}
+    			
     	}
     	
     	return null;

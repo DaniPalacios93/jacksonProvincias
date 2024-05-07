@@ -71,7 +71,8 @@ public class Principal extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				super.mouseClicked(e);
-				Provincia provinciaSeleccionada = DatosTablaProvincias.getProvinciaByFila(table.getSelectedRow());
+				int indiceFilaSel = table.getSelectedRow();
+				Provincia provinciaSeleccionada = DatosTablaProvincias.getAllProvincias().get(indiceFilaSel);
 				panel.cargaProvincia(provinciaSeleccionada);
 			}
 		});

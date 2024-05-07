@@ -5,17 +5,22 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 
 import jsonProvincias.controlers.ControladorCcaa;
+import jsonProvincias.controlers.ControladorProvincia;
 import jsonProvincias.entities.Ccaa;
 import jsonProvincias.entities.Provincia;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VistaGestionDeProvincias extends JPanel {
 
@@ -97,37 +102,56 @@ public class VistaGestionDeProvincias extends JPanel {
 		gbc_jcbCcaa.gridy = 3;
 		add(jcbCcaa, gbc_jcbCcaa);
 		
+		//BTN ACTUALIZAR CCAA
 		JButton btnActualizarCcaa = new JButton("Ver ccaa");
+		btnActualizarCcaa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				abrirGestionCcaa();
+			}
+		});
 		GridBagConstraints gbc_btnActualizarCcaa = new GridBagConstraints();
 		gbc_btnActualizarCcaa.insets = new Insets(0, 0, 5, 0);
 		gbc_btnActualizarCcaa.gridx = 2;
 		gbc_btnActualizarCcaa.gridy = 3;
 		add(btnActualizarCcaa, gbc_btnActualizarCcaa);
 		
+		// BTN GUARDAR
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveEntry();
+			}
+		});
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
 		gbc_btnGuardar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnGuardar.gridx = 1;
 		gbc_btnGuardar.gridy = 4;
 		add(btnGuardar, gbc_btnGuardar);
 
-		
-		
+		cargaTodasLasCcaa();
 	}
 	
-	
+	/**
+	 * 
+	 * @param provinciaSeleccionada
+	 */
 	public void cargaProvincia(Provincia provinciaSeleccionada) {
 		
-		cargaTodasLasCcaa();
-	
 		if(provinciaSeleccionada != null) {
 			this.jtfCode.setText(provinciaSeleccionada.getCode());
 			this.jtfLabel.setText(provinciaSeleccionada.getLabel());
-			this.jcbCcaa.setSelectedItem(ControladorCcaa.getInstance().getCcaaByProvincia(provinciaSeleccionada));
+			
+			for(int i = 0; i < this.jcbCcaa.getItemCount(); i++) {
+				if(provinciaSeleccionada.getParent_code().equals(this.jcbCcaa.getItemAt(i).getCode())) {
+					this.jcbCcaa.setSelectedIndex(i);
+				}
+			}
 		}
 	}
 	
-	
+	/**
+	 * 
+	 */
 	private void cargaTodasLasCcaa() {
 		l = ControladorCcaa.getInstance().getAllCcaa();
 		
@@ -136,4 +160,39 @@ public class VistaGestionDeProvincias extends JPanel {
 		}
 	}
 
+	/**
+	 * 
+	 */
+	private void saveEntry() {
+		
+		Provincia p =  new Provincia();
+		
+		Ccaa cSelected = (Ccaa) jcbCcaa.getSelectedItem();
+		
+		p.setParent_code(cSelected.getCode());
+		p.setCode(jtfCode.getText());
+		p.setLabel(jtfLabel.getText());
+		
+		ControladorProvincia.getInstance().updateDocument(p);
+	}
+	
+	/**
+	 * 
+	 */
+	public void abrirGestionCcaa() {
+		JDialog dialogo = new JDialog();
+		dialogo.setResizable(true);
+		dialogo.setTitle("Gestión de Ccaa");
+	
+		dialogo.setContentPane(new VistaGestionDeCcaa((Ccaa)jcbCcaa.getSelectedItem()));
+		
+		dialogo.pack();
+		dialogo.setModal(true);
+		dialogo.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width)/2 - dialogo.getWidth()/2, 
+				(Toolkit.getDefaultToolkit().getScreenSize().height)/2 - dialogo.getHeight()/2);
+		
+		dialogo.setVisible(true);
+	}
+	
+	
 }

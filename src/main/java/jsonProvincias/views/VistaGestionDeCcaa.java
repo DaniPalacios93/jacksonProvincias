@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.Window;
 
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import jsonProvincias.controlers.ControladorCcaa;
 import jsonProvincias.entities.Ccaa;
@@ -89,6 +90,10 @@ public class VistaGestionDeCcaa extends JPanel {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateCcaa();
+				// Obtiene la ventana actual en la que se encuentra el botón
+		        Window window = SwingUtilities.windowForComponent(btnGuardar);
+		        // Cierra la ventana
+		        window.dispose();
 			}
 		});
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
